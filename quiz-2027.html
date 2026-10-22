@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Boussole 2027 — quel programme vous ressemble ?</title>
+<meta name="description" content="20 propositions, un verdict : découvrez quel programme présidentiel 2027 vous ressemble vraiment. Aucun nom de candidat avant la fin.">
+<meta property="og:title" content="Boussole 2027 — quel programme vous ressemble ?">
+<meta property="og:description" content="20 propositions, un verdict aveugle. Aucun nom de candidat avant la fin.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0b0f14">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+<style>
+  :root{
+    --bg:#0b0f14; --bg2:#111821; --card:#151d27; --line:#233040;
+    --txt:#e8eef6; --dim:#8fa3b8; --acc:#5aa9e6; --acc2:#7ee0b8;
+    --ok:#4ade80; --warn:#fbbf24; --bad:#f87171;
+    --r:14px; --mx:760px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    background:radial-gradient(120% 80% at 50% -10%,#16222f 0%,var(--bg) 55%);
+    color:var(--txt); font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    min-height:100vh; padding:0 0 env(safe-area-inset-bottom);
+  }
+  .wrap{max-width:var(--mx);margin:0 auto;padding:28px 18px 64px}
+  h1{font-size:clamp(26px,6vw,40px);line-height:1.1;margin:0 0 12px;letter-spacing:-.02em}
+  h2{font-size:clamp(20px,4.6vw,26px);line-height:1.2;margin:0 0 14px;letter-spacing:-.01em}
+  h3{font-size:15px;margin:26px 0 10px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+  p{margin:0 0 14px}
+  .lead{color:var(--dim);font-size:17px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  button{font:inherit;cursor:pointer;border:0;border-radius:12px}
+  .btn{
+    background:var(--acc);color:#04121e;font-weight:650;padding:15px 22px;width:100%;
+    transition:filter .15s,transform .06s;
+  }
+  .btn:hover{filter:brightness(1.07)}
+  .btn:active{transform:translateY(1px)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.ghost{background:transparent;color:var(--dim);border:1px solid var(--line);font-weight:500}
+  .btn.ghost:hover{color:var(--txt);border-color:#3a4c62}
+  .tag{display:inline-block;font-size:12.5px;color:var(--dim);border:1px solid var(--line);
+       padding:4px 10px;border-radius:999px;margin:0 6px 6px 0}
+  .progress{height:3px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 26px}
+  .progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .25s}
+  .qnum{color:var(--dim);font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+  .stmt{font-size:clamp(19px,4.4vw,24px);line-height:1.35;font-weight:600;margin:0 0 26px;letter-spacing:-.01em}
+  .opts{display:grid;gap:9px}
+  .opt{
+    display:flex;align-items:center;gap:12px;text-align:left;width:100%;
+    background:var(--bg2);border:1px solid var(--line);color:var(--txt);
+    padding:14px 16px;border-radius:12px;font-size:15.5px;transition:.12s;
+  }
+  .opt:hover{border-color:#3a4c62;background:#18222e}
+  .opt .dot{width:22px;height:22px;border-radius:50%;border:2px solid #38506a;flex:none;
+            display:grid;place-items:center;font-size:13px;color:#04121e;font-weight:800}
+  .opt[data-k="2"] .dot{border-color:var(--ok)}
+  .opt[data-k="1"] .dot{border-color:#a3e635}
+  .opt[data-k="0"] .dot{border-color:#64748b}
+  .opt[data-k="-1"] .dot{border-color:#fb923c}
+  .opt[data-k="-2"] .dot{border-color:var(--bad)}
+  .opt.sel{background:#1b2836;border-color:var(--acc)}
+  .opt.sel .dot{background:var(--acc);border-color:var(--acc)}
+  .themes{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  @media(max-width:520px){.themes{grid-template-columns:1fr}}
+  .theme{
+    background:var(--bg2);border:1px solid var(--line);color:var(--txt);
+    padding:14px;border-radius:12px;text-align:left;font-size:15px;font-weight:550;transition:.12s;
+  }
+  .theme:hover{border-color:#3a4c62}
+  .theme.on{border-color:var(--acc2);background:#13241f;color:#d6ffee}
+  .theme small{display:block;color:var(--dim);font-weight:400;font-size:12.5px;margin-top:3px}
+  .theme.on small{color:#8fd8bb}
+  .counter{color:var(--dim);font-size:13.5px;margin:14px 0 0}
+  .res-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .res-name{font-size:clamp(24px,6vw,34px);font-weight:750;letter-spacing:-.02em}
+  .pct{font-size:clamp(30px,8vw,46px);font-weight:800;color:var(--acc2);letter-spacing:-.03em}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:12px 0 6px}
+  .bar>i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+  .rank{display:flex;justify-content:space-between;align-items:center;gap:14px;
+        padding:13px 0;border-top:1px solid var(--line)}
+  .rank:first-of-type{border-top:0}
+  .rank .n{font-weight:650}
+  .rank .p{color:var(--acc2);font-weight:700;font-variant-numeric:tabular-nums}
+  .rank .meta{color:var(--dim);font-size:12.5px}
+  .pill{font-size:11.5px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--dim)}
+  .pill.low{border-color:#7c5a12;color:var(--warn)}
+  .dis{background:#1a1410;border:1px solid #4a3410;border-radius:12px;padding:14px;margin:10px 0}
+  .dis .t{font-weight:650;margin-bottom:6px}
+  .dis .s{color:var(--dim);font-size:14px}
+  .note{color:var(--dim);font-size:13.5px;line-height:1.6}
+  .note strong{color:#c3d3e4}
+  a{color:var(--acc)}
+  .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:#0e151d;
+       border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--dim)}
+  .fade{animation:f .35s ease both}
+  @keyframes f{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .foot{margin-top:34px;padding-top:18px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+"use strict";
+
+/* ---------------------------------------------------------------
+   DONNÉES — synthèse des documents de campagne publiés au 22/10/2026
+   Échelle : -2 (pas d'accord) … +2 (d'accord) ; null = non documenté
+   --------------------------------------------------------------- */
+
+const THEMES = {
+  eco:   { label:"Pouvoir d'achat & salaires", hint:"SMIC, cotisations, aides" },
+  fisc:  { label:"Impôts & dépense publique",  hint:"Économies, fiscalité, dette" },
+  ret:   { label:"Retraites",                  hint:"Âge, capitalisation" },
+  imm:   { label:"Immigration & sécurité",     hint:"Frontières, ordre public" },
+  ener:  { label:"Écologie & énergie",         hint:"Nucléaire, climat" },
+  eur:   { label:"Europe & défense",           hint:"Traités, armée" },
+  edu:   { label:"École",                      hint:"Carte scolaire, programmes" },
+  inst:  { label:"Institutions",               hint:"Référendum, décentralisation" }
+};
+
+const QUESTIONS = [
+  { id:"q1",  th:"ret",  t:"Il faut abroger la réforme des retraites de 2023." },
+  { id:"q2",  th:"ret",  t:"Il faut introduire une part de capitalisation dans le système de retraite." },
+  { id:"q3",  th:"fisc", t:"Il faut réduire fortement la dépense publique, de plus de 100 milliards d'euros par quinquennat." },
+  { id:"q4",  th:"fisc", t:"Il faut augmenter les impôts des entreprises pour financer la hausse des salaires." },
+  { id:"q5",  th:"fisc", t:"Il faut baisser les impôts de production payés par les entreprises." },
+  { id:"q6",  th:"eco",  t:"L'État doit garantir un salaire minimum à 2 000 € brut." },
+  { id:"q7",  th:"imm",  t:"Il faut supprimer le droit du sol." },
+  { id:"q8",  th:"imm",  t:"Il faut réserver les aides sociales aux nationaux (préférence nationale)." },
+  { id:"q9",  th:"ener", t:"Il faut sortir du nucléaire." },
+  { id:"q10", th:"eur",  t:"Le droit français doit primer sur le droit européen." },
+  { id:"q11", th:"inst", t:"Il faut instaurer un référendum d'initiative citoyenne." },
+  { id:"q12", th:"imm",  t:"Il faut rétablir les peines planchers et construire davantage de prisons." },
+  { id:"q13", th:"edu",  t:"Il faut supprimer la carte scolaire et instaurer un chèque éducation." },
+  { id:"q14", th:"eur",  t:"Il faut augmenter massivement le budget de la défense." },
+  { id:"q15", th:"imm",  t:"Il faut régulariser les travailleurs sans papiers." },
+  { id:"q16", th:"eco",  t:"Il faut conditionner les aides sociales à un minimum d'heures de travail." },
+  { id:"q17", th:"fisc", t:"Il faut nationaliser des secteurs stratégiques (énergie, autoroutes)." },
+  { id:"q18", th:"inst", t:"Il faut décentraliser massivement, jusqu'à supprimer les départements." },
+  { id:"q19", th:"ener", t:"Il faut investir massivement dans la rénovation thermique et les renouvelables." },
+  { id:"q20", th:"imm",  t:"Il faut réduire l'immigration légale." }
+];
+
+const CANDIDATES = [
+  { id:"lepen", name:"Marine Le Pen", party:"Rassemblement national",
+    url:"https://marinelepen.com/",
+    p:{q1:2,q2:-2,q3:1,q4:1,q5:1,q6:1,q7:2,q8:2,q9:-1,q10:2,q11:2,q12:2,q13:0,q14:2,q15:-2,q16:1,q17:1,q18:1,q19:-1,q20:2} },
+
+  { id:"philippe", name:"Édouard Philippe", party:"Horizons",
+    url:"https://www.edouardphilippe.fr/",
+    p:{q1:-2,q2:-2,q3:1,q4:-2,q5:2,q6:-2,q7:-1,q8:-1,q9:-2,q10:-2,q11:-1,q12:2,q13:-1,q14:2,q15:-1,q16:1,q17:-2,q18:0,q19:1,q20:1} },
+
+  { id:"attal", name:"Gabriel Attal", party:"Renaissance",
+    url:"https://attalpresident.fr/programme",
+    p:{q1:-1,q2:2,q3:2,q4:-2,q5:1,q6:-1,q7:-1,q8:0,q9:-2,q10:-2,q11:-1,q12:2,q13:-1,q14:2,q15:-2,q16:2,q17:-2,q18:0,q19:1,q20:1} },
+
+  { id:"retailleau", name:"Bruno Retailleau", party:"Les Républicains",
+    url:"https://www.avecretailleau.fr/",
+    p:{q1:-2,q2:-1,q3:2,q4:-2,q5:2,q6:-2,q7:1,q8:1,q9:-2,q10:1,q11:0,q12:2,q13:0,q14:2,q15:-2,q16:2,q17:-2,q18:0,q19:-1,q20:2} },
+
+  { id:"lisnard", name:"David Lisnard", party:"Nouvelle Énergie",
+    url:"https://www.unenouvelleenergie.fr/notre-programme/",
+    p:{q1:-2,q2:2,q3:2,q4:-2,q5:2,q6:-2,q7:null,q8:0,q9:-2,q10:1,q11:1,q12:1,q13:2,q14:2,q15:-2,q16:2,q17:-2,q18:2,q19:-1,q20:2} },
+
+  { id:"melenchon", name:"Jean-Luc Mélenchon", party:"La France insoumise",
+    url:"https://melenchon2027.fr/programme/decouvrir/",
+    p:{q1:2,q2:-2,q3:-2,q4:2,q5:-1,q6:2,q7:-2,q8:-2,q9:2,q10:1,q11:2,q12:-1,q13:-2,q14:0,q15:2,q16:-2,q17:2,q18:-2,q19:2,q20:-2} },
+
+  { id:"glucksmann", name:"Raphaël Glucksmann", party:"Place publique / PS",
+    url:"https://raphaelglucksmann.eu/programme.html",
+    p:{q1:2,q2:-1,q3:null,q4:null,q5:null,q6:1,q7:-2,q8:-2,q9:-1,q10:-2,q11:-1,q12:-1,q13:-2,q14:1,q15:1,q16:-1,q17:0,q18:0,q19:2,q20:-1} },
+
+  { id:"roussel", name:"Fabien Roussel", party:"Parti communiste",
+    url:"https://www.fabienroussel2027.fr/",
+    p:{q1:2,q2:-2,q3:-2,q4:2,q5:-1,q6:2,q7:-2,q8:-2,q9:1,q10:1,q11:1,q12:-1,q13:-2,q14:-1,q15:2,q16:-2,q17:2,q18:-2,q19:1,q20:-2} },
+
+  { id:"tondelier", name:"Marine Tondelier", party:"Les Écologistes",
+    url:"https://lesecologistes.fr/share/page/6ImK65GKUnvibm33WGkjkj/projet",
+    p:{q1:2,q2:-2,q3:-1,q4:1,q5:0,q6:2,q7:-2,q8:-2,q9:2,q10:-1,q11:1,q12:-2,q13:-2,q14:0,q15:1,q16:-2,q17:1,q18:0,q19:2,q20:-2} },
+
+  { id:"zemmour", name:"Éric Zemmour", party:"Reconquête",
+    url:"https://www.reconquete.fr/",
+    p:{q1:null,q2:null,q3:1,q4:-2,q5:1,q6:-1,q7:2,q8:2,q9:-2,q10:2,q11:0,q12:2,q13:1,q14:2,q15:-2,q16:1,q17:-1,q18:-1,q19:-2,q20:2} },
+
+  { id:"da", name:"Nicolas Dupont-Aignan", party:"Debout la France",
+    url:"https://www.dupontaignan.fr/",
+    p:{q1:1,q2:-1,q3:1,q4:-1,q5:0,q6:1,q7:2,q8:2,q9:-2,q10:2,q11:2,q12:2,q13:0,q14:1,q15:-2,q16:0,q17:1,q18:1,q19:0,q20:2} }
+];
+
+/* Candidatures déclarées sans corpus programmatique exploitable au 22/10/2026 */
+const EXCLUDED = ["François Asselineau","Nathalie Arthaud","Delphine Batho","Karim Bouamrane",
+  "Olivier Becht","Natacha Polony","Florian Philippot","Gilles Platret","Anasse Kazib",
+  "Selma Labib","Philippe Herlin","Juan Branco","Francis Lalanne","Patrick Sébastien"];
+
+/* --------------------------- logique --------------------------- */
+
+const MIN_DOC = 6; // en-dessous, le score n'est pas fiable
+
+let st = { step:"intro", themes:[], ans:{}, i:0 };
+
+const $ = s => document.querySelector(s);
+const el = (t,c,h) => { const n=document.createElement(t); if(c)n.className=c; if(h!=null)n.innerHTML=h; return n; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function weight(q){
+  return st.themes.includes(q.th) ? 2 : 1;
+}
+
+function score(){
+  const rows = [];
+  for(const c of CANDIDATES){
+    let num=0, den=0, doc=0, answered=0;
+    for(const q of QUESTIONS){
+      const u = st.ans[q.id];
+      if(u===undefined) continue;
+      answered++;
+      const v = c.p[q.id];
+      if(v==null) continue;
+      doc++;
+      const w = weight(q);
+      const match = (4 - Math.abs(u - v)) / 4; // 0..1
+      num += w * match; den += w;
+    }
+    rows.push({ c, pct: den? Math.round(num/den*100) : null, doc, answered });
+  }
+  rows.sort((a,b) => (b.pct??-1) - (a.pct??-1));
+  return rows;
+}
+
+function disagreements(c, limit=3){
+  const out=[];
+  for(const q of QUESTIONS){
+    const u = st.ans[q.id], v = c.p[q.id];
+    if(u===undefined || v==null) continue;
+    const d = Math.abs(u-v);
+    if(d>=3) out.push({ q, u, v, d });
+  }
+  return out.sort((a,b)=>b.d-a.d).slice(0,limit);
+}
+
+const LBL = { "2":"D'accord", "1":"Plutôt d'accord", "0":"Neutre", "-1":"Plutôt pas", "-2":"Pas d'accord" };
+
+/* --------------------------- vues --------------------------- */
+
+function viewIntro(){
+  return `<div class="fade">
+    <span class="tag">Présidentielle 2027</span>
+    <span class="tag">20 questions · 3 min</span>
+    <h1>Quel programme vous ressemble vraiment ?</h1>
+    <p class="lead">Vous répondez à 20 propositions. À la fin, la boussole révèle les programmes
+    les plus proches du vôtre. <strong>Aucun nom de candidat n'apparaît pendant le test.</strong></p>
+
+    <div class="card" style="margin:24px 0">
+      <p style="margin:0 0 10px"><strong>Ce que ça mesure</strong></p>
+      <p class="note" style="margin:0">La proximité entre vos réponses et les positions
+      <em>publiées</em> de 11 candidatures, sur 20 sujets. Pas un vote, pas une consigne :
+      un miroir. Les candidats trop peu documentés sont écartés et signalés.</p>
+    </div>
+
+    <button class="btn" onclick="go('themes')">Commencer</button>
+    <p class="note" style="margin-top:18px">Aucune donnée n'est envoyée. Tout reste dans votre navigateur.</p>
+  </div>`;
+}
+
+function viewThemes(){
+  const n = st.themes.length;
+  const cards = Object.entries(THEMES).map(([k,t])=>`
+    <button class="theme ${st.themes.includes(k)?"on":""}" onclick="toggleTheme('${k}')">
+      ${esc(t.label)}<small>${esc(t.hint)}</small>
+    </button>`).join("");
+  return `<div class="fade">
+    <div class="qnum">Étape 1 · Vos priorités</div>
+    <h2>Quels sujets comptent le plus pour vous ?</h2>
+    <p class="lead">Choisissez-en 3. Ils pèseront double dans le calcul.</p>
+    <div class="themes">${cards}</div>
+    <p class="counter">${n}/3 sélectionné${n>1?"s":""}</p>
+    <button class="btn" style="margin-top:18px" ${n===3?"":"disabled"} onclick="go('quiz')">
+      ${n===3 ? "Passer aux questions" : "Choisissez 3 thèmes"}
+    </button>
+    <button class="btn ghost" style="margin-top:9px" onclick="skipThemes()">Passer cette étape</button>
+  </div>`;
+}
+
+function viewQuiz(){
+  const q = QUESTIONS[st.i];
+  const cur = st.ans[q.id];
+  const pct = Math.round((st.i)/QUESTIONS.length*100);
+  const opts = ["2","1","0","-1","-2"].map(k=>`
+    <button class="opt ${String(cur)===k?"sel":""}" data-k="${k}" onclick="answer(${k})">
+      <span class="dot"></span><span>${LBL[k]}</span>
+    </button>`).join("");
+  return `<div class="fade">
+    <div class="progress"><i style="width:${pct}%"></i></div>
+    <div class="qnum">Question ${st.i+1} / ${QUESTIONS.length} · ${esc(THEMES[q.th].label)}</div>
+    <p class="stmt">${esc(q.t)}</p>
+    <div class="opts">${opts}</div>
+    <div class="row" style="margin-top:20px">
+      ${st.i>0?`<button class="btn ghost" style="flex:1;width:auto" onclick="back()">Précédent</button>`:""}
+      <button class="btn ghost" style="flex:1;width:auto" onclick="skip()">Je ne sais pas</button>
+    </div>
+  </div>`;
+}
+
+function viewResult(){
+  const rows = score();
+  const valid = rows.filter(r => r.doc >= MIN_DOC && r.pct !== null);
+  const weak  = rows.filter(r => r.doc <  MIN_DOC && r.pct !== null);
+
+  if(!valid.length){
+    return `<div class="fade"><h2>Réponses insuffisantes</h2>
+      <p class="lead">Il faut répondre à davantage de propositions pour obtenir un résultat fiable.</p>
+      <button class="btn" onclick="restart()">Recommencer</button></div>`;
+  }
+
+  const top = valid[0];
+  const second = valid[1];
+  const gap = second ? top.pct - second.pct : null;
+  const dis = disagreements(top.c);
+
+  const others = valid.slice(1,6).map(r=>`
+    <div class="rank">
+      <div><div class="n">${esc(r.c.name)}</div>
+        <div class="meta">${esc(r.c.party)} · ${r.doc}/${r.answered} positions documentées</div></div>
+      <div class="p">${r.pct}%</div>
+    </div>`).join("");
+
+  const disHtml = dis.length ? dis.map(d=>`
+    <div class="dis">
+      <div class="t">${esc(d.q.t)}</div>
+      <div class="s">Vous : <strong style="color:#d9e6f2">${LBL[String(d.u)].toLowerCase()}</strong>
+      · ${esc(top.c.name)} : <strong style="color:#d9e6f2">${LBL[String(d.v)].toLowerCase()}</strong></div>
+    </div>`).join("") : `<p class="note">Aucun désaccord majeur sur les sujets documentés. Rare.</p>`;
+
+  const weakHtml = weak.length ? `<p class="note" style="margin-top:14px">
+    Écartés faute de positions publiées suffisantes :
+    ${weak.map(r=>`${esc(r.c.name)} (${r.doc})`).join(" · ")}.</p>` : "";
+
+  return `<div class="fade">
+    <div class="qnum">Verdict</div>
+    <div class="res-head">
+      <div class="res-name">${esc(top.c.name)}</div>
+      <div class="pct">${top.pct}%</div>
+    </div>
+    <div style="color:var(--dim);margin-bottom:14px">${esc(top.c.party)}</div>
+    <div class="bar"><i style="width:${top.pct}%"></i></div>
+    <p class="note">Proximité calculée sur ${top.doc} positions publiées.
+    ${gap!==null && gap<=4 ? "<strong>Attention :</strong> l'écart avec le deuxième est inférieur à 5 points — la différence n'est pas significative." : ""}</p>
+
+    ${dis.length ? `<h3>Là où vous ne serez pas d'accord</h3>${disHtml}` : ""}
+
+    <h3>Le reste du classement</h3>
+    <div>${others}</div>
+
+    <h3>Fiabilité</h3>
+    <p class="note">${weakHtml || "Tous les candidats comparés ont un corpus suffisant."}
+    ${EXCLUDED.length} autres candidatures déclarées n'ont publié aucun programme
+    exploitable à ce jour : ${esc(EXCLUDED.join(", "))}.
+    Absence de données ≠ absence de programme.</p>
+
+    <div class="row" style="margin-top:26px">
+      <button class="btn ghost" style="flex:1" onclick="restart()">Recommencer</button>
+      <a class="btn" style="flex:1;text-align:center;text-decoration:none;display:grid;place-items:center"
+         href="${top.c.url}" target="_blank" rel="noopener">Voir son programme</a>
+    </div>
+
+    <div class="foot">
+      <p class="note"><strong>Ce que ce résultat n'est pas.</strong> Ni une recommandation de vote,
+      ni une prédiction. Les positions sont une synthèse des documents de campagne publiés au
+      22/10/2026, arrêtées à -2…+2 par l'auteur de l'outil : c'est une interprétation, discutable,
+      pas une parole des candidats. Un programme de campagne n'est pas un programme de gouvernement.</p>
+      <p class="note">Les professions de foi officielles n'existeront qu'en avril 2027, pendant la
+      campagne officielle. D'ici là, tout comparateur travaille sur des documents partiels.</p>
+    </div>
+  </div>`;
+}
+
+/* --------------------------- actions --------------------------- */
+
+function go(step){ st.step = step; render(); }
+function toggleTheme(k){
+  const i = st.themes.indexOf(k);
+  if(i>=0) st.themes.splice(i,1);
+  else if(st.themes.length<3) st.themes.push(k);
+  render();
+}
+function skipThemes(){ st.themes = []; go("quiz"); }
+function answer(v){
+  st.ans[QUESTIONS[st.i].id] = v;
+  if(st.i < QUESTIONS.length-1){ st.i++; render(); }
+  else go("result");
+}
+function skip(){
+  if(st.i < QUESTIONS.length-1){ st.i++; render(); }
+  else go("result");
+}
+function back(){ if(st.i>0){ st.i--; render(); } }
+function restart(){
+  st = { step:"intro", themes:[], ans:{}, i:0 };
+  render();
+}
+
+/* --------------------------- rendu --------------------------- */
+
+function render(){
+  const v = { intro:viewIntro, themes:viewThemes, quiz:viewQuiz, result:viewResult }[st.step];
+  $("#app").innerHTML = v ? v() : "";
+  window.scrollTo({ top:0, behavior:"instant" });
+}
+render();
+</script>
+</body>
+</html>
