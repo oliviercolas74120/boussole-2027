@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maquette A — Panneau d'affichage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papier:#e9e5dd;
+  --papier2:#f2efe9;
+  --encre:#14161a;
+  --encre2:#4a4f57;
+  --vermillon:#c8382b;
+  --trait:#c9c3b6;
+  --ombre:0 2px 0 rgba(20,22,26,.10), 0 18px 34px -24px rgba(20,22,26,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--papier);color:var(--encre);
+  font-family:Archivo,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.ecran{max-width:860px;margin:0 auto;padding:44px 22px 70px}
+.sep{max-width:860px;margin:0 auto;border-top:2px solid var(--encre);padding:8px 22px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--encre2)}
+
+/* ---------- entête ---------- */
+.eyebrow{
+  text-align:center;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--encre2);margin-bottom:22px;
+}
+h1{
+  font-family:"Archivo Black",Archivo,sans-serif;
+  text-align:center;line-height:.86;letter-spacing:-.045em;
+  font-size:clamp(52px,15.5vw,132px);text-transform:uppercase;
+}
+h1 .an{display:block;color:var(--encre)}
+h1 .an2{display:block;color:var(--vermillon)}
+.tagline{
+  text-align:center;max-width:30ch;margin:26px auto 0;font-size:clamp(17px,2.4vw,21px);
+  line-height:1.35;font-weight:500;color:var(--encre);
+}
+.tagline b{font-weight:800}
+
+/* ---------- panneau d'affichage ---------- */
+.panneau{
+  margin:38px 0 0;padding:22px 20px 26px;background:var(--papier2);
+  border:1px solid var(--trait);box-shadow:var(--ombre);
+}
+.panneau-haut{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--encre2);
+  padding-bottom:14px;margin-bottom:18px;border-bottom:1px solid var(--trait);
+}
+.grille{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}
+@media(max-width:620px){.grille{grid-template-columns:repeat(4,1fr);gap:7px}}
+.dos{
+  aspect-ratio:3/4;background:linear-gradient(168deg,#f6f3ed,#e4dfd3);
+  border:1px solid #cfc8ba;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.dos::before{
+  content:"";position:absolute;inset:7px;border:1px solid #d8d2c4;
+}
+.dos span{
+  position:relative;font-family:"Archivo Black",sans-serif;font-size:13px;color:#b3ab9a;
+  letter-spacing:.06em;
+}
+.dos.vide{background:repeating-linear-gradient(45deg,#efebe3 0 6px,#e7e2d8 6px 12px);border-style:dashed}
+.legende-panneau{
+  margin-top:16px;font-size:12.5px;color:var(--encre2);line-height:1.5;text-align:center;
+}
+
+/* ---------- bouton ---------- */
+.cta{display:flex;justify-content:center;margin-top:34px}
+button.big{
+  font-family:Archivo,sans-serif;font-weight:800;font-size:17px;letter-spacing:.01em;
+  background:var(--encre);color:var(--papier2);border:0;padding:19px 40px;cursor:pointer;
+  box-shadow:var(--ombre);transition:transform .12s,background .12s;
+}
+button.big:hover{background:#000;transform:translateY(-1px)}
+.fine{text-align:center;font-size:12px;color:var(--encre2);margin-top:18px}
+
+/* ---------- VERDICT : affiche ---------- */
+.affiche{
+  margin-top:10px;background:var(--papier2);border:1px solid var(--trait);
+  box-shadow:var(--ombre);padding:0;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);
+}
+@media(max-width:660px){.affiche{grid-template-columns:1fr}}
+.affiche .portrait{position:relative;background:#ddd8cc}
+.affiche .portrait img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05)}
+.affiche .portrait .band{position:absolute;top:0;left:0;right:0;padding:9px 12px;background:var(--vermillon);color:#fff;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+.affiche .txt{padding:26px 26px 30px}
+.affiche .pos{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--encre2)}
+.affiche .nom{font-family:"Archivo Black",sans-serif;font-size:clamp(30px,5.4vw,46px);line-height:.95;letter-spacing:-.03em;margin:8px 0 6px}
+.affiche .parti{font-size:14px;color:var(--encre2);margin-bottom:20px}
+.affiche .score{display:flex;align-items:baseline;gap:10px}
+.affiche .score b{font-family:"Archivo Black",sans-serif;font-size:clamp(46px,9vw,72px);line-height:.8;color:var(--vermillon);letter-spacing:-.05em}
+.affiche .score i{font-style:normal;font-size:13px;color:var(--encre2);max-width:16ch;line-height:1.3}
+.jauge{height:7px;background:#d5cfc2;margin-top:16px;position:relative;overflow:hidden}
+.jauge>i{position:absolute;inset:0 auto 0 0;background:var(--encre)}
+.alerte{margin-top:14px;font-size:12.5px;line-height:1.45;color:var(--encre);border-left:2px solid var(--vermillon);padding-left:10px}
+
+/* ---------- classement ---------- */
+h2.sec{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--encre2);margin:38px 0 4px;font-weight:600}
+.liste{margin-top:6px}
+.ligne{
+  display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;
+  padding:13px 0;border-bottom:1px solid var(--trait);
+}
+.ligne .ph{width:44px;height:54px;object-fit:cover;filter:grayscale(1) contrast(1.05);border:1px solid #cfc8ba}
+.ligne .nm{font-weight:700;font-size:15.5px;line-height:1.15}
+.ligne .pt{font-size:11.5px;color:var(--encre2);margin-top:2px}
+.ligne .pc{font-family:"Archivo Black",sans-serif;font-size:19px;font-variant-numeric:tabular-nums}
+.ligne.top .pc{color:var(--vermillon)}
+.ligne.top .ph{filter:none}
+
+/* ---------- fiabilité ---------- */
+.fiab{margin-top:30px;padding:18px;border:1px solid var(--trait);background:var(--papier2);font-size:12.5px;line-height:1.6;color:var(--encre2)}
+.fiab strong{color:var(--encre)}
+.credits{margin-top:26px;font-size:10.5px;line-height:1.6;color:#8b8677}
+</style>
+</head>
+<body>
+
+<!-- ============ ÉCRAN 1 : ACCUEIL ============ -->
+<section class="ecran">
+  <p class="eyebrow">Présidentielle · 22 avril 2027</p>
+  <h1><span class="an">Élection</span><span class="an2">2027</span></h1>
+  <p class="tagline">Quel programme vous ressemble vraiment&nbsp;?<br><b>Aucun nom avant le verdict.</b></p>
+
+  <div class="panneau">
+    <div class="panneau-haut">
+      <span>Panneau d'affichage</span>
+      <span>11 affiches · scellées</span>
+    </div>
+    <div class="grille">
+      <div class="dos"><span>01</span></div>
+      <div class="dos"><span>02</span></div>
+      <div class="dos"><span>03</span></div>
+      <div class="dos"><span>04</span></div>
+      <div class="dos"><span>05</span></div>
+      <div class="dos"><span>06</span></div>
+      <div class="dos"><span>07</span></div>
+      <div class="dos"><span>08</span></div>
+      <div class="dos"><span>09</span></div>
+      <div class="dos"><span>10</span></div>
+      <div class="dos"><span>11</span></div>
+      <div class="dos vide"></div>
+    </div>
+    <p class="legende-panneau">20 propositions, 3 minutes. Les affiches ne se retournent qu'à la fin.</p>
+  </div>
+
+  <div class="cta"><button class="big">Ouvrir le panneau</button></div>
+  <p class="fine">Aucune donnée envoyée. Tout reste dans votre navigateur.</p>
+</section>
+
+<div class="sep">Écran de verdict — après les 20 réponses</div>
+
+<!-- ============ ÉCRAN 2 : VERDICT ============ -->
+<section class="ecran">
+  <p class="eyebrow" style="text-align:left;margin-bottom:14px">Votre affiche</p>
+
+  <div class="affiche">
+    <div class="portrait">
+      <img src="img/da.jpg" alt="">
+      <div class="band">1<sup>er</sup> — Debout la France</div>
+    </div>
+    <div class="txt">
+      <p class="pos">Programme le plus proche</p>
+      <p class="nom">Nicolas<br>Dupont-Aignan</p>
+      <p class="parti">Debout la France · 20 positions publiées</p>
+      <div class="score"><b>69%</b><i>proximité calculée sur 20 positions</i></div>
+      <div class="jauge"><i style="width:69%"></i></div>
+      <p class="alerte"><strong>Écart de 3 points</strong> avec le deuxième : la différence n'est pas significative.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">Là où vous ne serez pas d'accord</h2>
+  <div class="ligne" style="grid-template-columns:1fr;border-bottom:1px solid var(--trait);padding:16px 0">
+    <div>
+      <div class="nm">Le droit français doit primer sur le droit européen.</div>
+      <div class="pt">Vous : pas d'accord · Nicolas Dupont-Aignan : d'accord</div>
+    </div>
+  </div>
+
+  <h2 class="sec">Le reste du panneau</h2>
+  <div class="liste">
+    <div class="ligne"><img class="ph" src="img/lepen.jpg" alt=""><div><div class="nm">Marine Le Pen</div><div class="pt">Rassemblement national · 20/20</div></div><div class="pc">66%</div></div>
+    <div class="ligne"><img class="ph" src="img/glucksmann.jpg" alt=""><div><div class="nm">Raphaël Glucksmann</div><div class="pt">Place publique / PS · 17/20</div></div><div class="pc">60%</div></div>
+    <div class="ligne"><img class="ph" src="img/tondelier.jpg" alt=""><div><div class="nm">Marine Tondelier</div><div class="pt">Les Écologistes · 20/20</div></div><div class="pc">59%</div></div>
+    <div class="ligne"><img class="ph" src="img/attal.jpg" alt=""><div><div class="nm">Gabriel Attal</div><div class="pt">Renaissance · 20/20</div></div><div class="pc">57%</div></div>
+    <div class="ligne"><img class="ph" src="img/zemmour.jpg" alt=""><div><div class="nm">Éric Zemmour</div><div class="pt">Reconquête · 18/20</div></div><div class="pc">55%</div></div>
+  </div>
+
+  <div class="fiab">
+    <strong>Fixture du calcul.</strong> 11 candidatures comparées sur 20 sujets. Aucune n'est écartée faute de corpus (la moins documentée en compte 17 sur 20). 14 autres candidatures déclarées n'ont publié aucun programme exploitable à ce jour.
+  </div>
+  <p class="credits">Photographies : Wikimedia Commons, licences CC BY-SA — crédits détaillés en pied de page.</p>
+</section>
+
+</body>
+</html>
